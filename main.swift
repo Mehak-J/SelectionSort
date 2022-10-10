@@ -2,21 +2,27 @@
 //let unsortedWords = ["dino", "cowboy", "baby", "ant"]
 
 var words = [String]()
-
+var temp = ""
 while let line = readLine() {
     
     if (line.count == 0) {break;}
     words.append(line)
 }
 
-for i in 1..<words.count {
-    let tmp  = words[i].lowercased()
-    var j = i-1
-    while j>=0 && words[j] > tmp {
-        words [j+1] = words[j].lowercased()
-        j-=1
+for i in 0..<words.count - 1 {
+    var minIndex = i
+
+    for j in i + 1 ..< words.count {
+        if words[j] < words[minIndex] {
+            minIndex = j
+        }
+
     }
-    words [j+1]  = tmp
+    if i != minIndex {
+        temp = words[i]
+        words[i] = words[minIndex]
+        words[minIndex] = temp
+    }
 }
 print(words)
 
